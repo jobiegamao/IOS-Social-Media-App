@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C776610298CB72500A7FB3C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C77660F298CB72500A7FB3C /* PostTableViewCell.swift */; };
 		6CC7FB01298928AA009CCB33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB00298928AA009CCB33 /* AppDelegate.swift */; };
 		6CC7FB03298928AA009CCB33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB02298928AA009CCB33 /* SceneDelegate.swift */; };
 		6CC7FB05298928AA009CCB33 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB04298928AA009CCB33 /* MainTabBarController.swift */; };
@@ -16,9 +17,12 @@
 		6CC7FB2029892B1D009CCB33 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB1F29892B1D009CCB33 /* SearchViewController.swift */; };
 		6CC7FB2229892B2B009CCB33 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB2129892B2B009CCB33 /* MessagesViewController.swift */; };
 		6CC7FB2529892B80009CCB33 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB2429892B80009CCB33 /* NotificationsViewController.swift */; };
+		6CCC63B1298E4E9E00D940BF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC63B0298E4E9E00D940BF /* ProfileViewController.swift */; };
+		6CCC63B3298E6DB000D940BF /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC63B2298E6DB000D940BF /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C77660F298CB72500A7FB3C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		6CC7FAFD298928AA009CCB33 /* twitterclone_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitterclone_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC7FB00298928AA009CCB33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CC7FB02298928AA009CCB33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +34,8 @@
 		6CC7FB1F29892B1D009CCB33 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		6CC7FB2129892B2B009CCB33 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		6CC7FB2429892B80009CCB33 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		6CCC63B0298E4E9E00D940BF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6CCC63B2298E6DB000D940BF /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				6CC7FB1A29892AAF009CCB33 /* MainTab */,
+				6CCC63AF298E4E5F00D940BF /* Frames */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -102,6 +109,8 @@
 		6CC7FB1729892A8D009CCB33 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C77660F298CB72500A7FB3C /* PostTableViewCell.swift */,
+				6CCC63B2298E6DB000D940BF /* ProfileHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +155,14 @@
 				6CC7FB04298928AA009CCB33 /* MainTabBarController.swift */,
 			);
 			path = TabController;
+			sourceTree = "<group>";
+		};
+		6CCC63AF298E4E5F00D940BF /* Frames */ = {
+			isa = PBXGroup;
+			children = (
+				6CCC63B0298E4E9E00D940BF /* ProfileViewController.swift */,
+			);
+			path = Frames;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,8 +238,11 @@
 				6CC7FB2229892B2B009CCB33 /* MessagesViewController.swift in Sources */,
 				6CC7FB2029892B1D009CCB33 /* SearchViewController.swift in Sources */,
 				6CC7FB05298928AA009CCB33 /* MainTabBarController.swift in Sources */,
+				6C776610298CB72500A7FB3C /* PostTableViewCell.swift in Sources */,
 				6CC7FB01298928AA009CCB33 /* AppDelegate.swift in Sources */,
 				6CC7FB03298928AA009CCB33 /* SceneDelegate.swift in Sources */,
+				6CCC63B1298E4E9E00D940BF /* ProfileViewController.swift in Sources */,
+				6CCC63B3298E6DB000D940BF /* ProfileHeaderView.swift in Sources */,
 				6CC7FB2529892B80009CCB33 /* NotificationsViewController.swift in Sources */,
 				6CC7FB1D29892AE5009CCB33 /* HomeViewController.swift in Sources */,
 			);

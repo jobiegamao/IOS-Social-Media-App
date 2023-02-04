@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController {
 	]
 	private let tabImage_selected = [
 		"house.fill",
-		"magnifyingglass",
+		"",
 		"bell.fill",
 		"envelope.fill"
 	]
@@ -40,7 +40,10 @@ class MainTabBarController: UITabBarController {
 		
 		for (index, tab) in tabs.enumerated() {
 			tab.tabBarItem.image = UIImage(systemName: tabImage[index])
-			tab.tabBarItem.selectedImage = UIImage(systemName: tabImage_selected[index])
+			if(tabImage_selected[index] != ""){
+				tab.tabBarItem.selectedImage = UIImage(systemName: tabImage_selected[index])
+			}
+			
 		}
 		
 		setViewControllers(tabs, animated: true)
