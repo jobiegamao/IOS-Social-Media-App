@@ -37,7 +37,7 @@ class PostTableViewCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 20, weight: .bold)
 		label.textColor = .label
-		label.text = "Jane"
+		label.text = "Jane Doe"
 		
 		
 		return label
@@ -49,8 +49,8 @@ class PostTableViewCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 19, weight: .light)
 		label.textColor = .secondaryLabel
-		label.text = "@Jane.Doe"
-		
+		label.text = "@janethefabulousDoe"
+		label.numberOfLines = 1
 		return label
 
 	}()
@@ -80,42 +80,27 @@ class PostTableViewCell: UITableViewCell {
 
 	}()
 	
-	private let replyBtn: UIButton = {
+	private var buttons: [UIButton] = ["reply", "retweet", "heart", "share"].map {
+		buttonImage in
+	
 		let btn = UIButton(type: .system)
 		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setImage(UIImage(named: "reply"), for: .normal)
+		btn.setImage(UIImage(named: buttonImage), for: .normal)
 		btn.tintColor = .secondaryLabel
 		
 		return btn
+	}
+	
+	lazy private var buttonsStack: UIStackView = {
+		let stack = UIStackView(arrangedSubviews: self.buttons)
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.distribution = .equalSpacing
+		stack.alignment = .center
+		stack.axis = .horizontal
+		
+		return stack
 	}()
 	
-	private let retweetBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setImage(UIImage(named: "retweet"), for: .normal)
-		btn.tintColor = .secondaryLabel
-		
-		return btn
-	}()
-	
-	private let likeBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setImage(UIImage(systemName: "heart"), for: .normal)
-		btn.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-		btn.tintColor = .secondaryLabel
-		
-		return btn
-	}()
-	
-	private let shareBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setImage(UIImage(named: "share"), for: .normal)
-		btn.tintColor = .secondaryLabel
-		
-		return btn
-	}()
 	
 	private func configureConstraints(){
 		
@@ -129,58 +114,52 @@ class PostTableViewCell: UITableViewCell {
 			displaynameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 5),
 			displaynameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
 			
-			usernameLabel.leadingAnchor.constraint(equalTo: displaynameLabel.trailingAnchor),
+			usernameLabel.leadingAnchor.constraint(equalTo: displaynameLabel.trailingAnchor, constant: 1),
 			usernameLabel.bottomAnchor.constraint(equalTo: displaynameLabel.bottomAnchor),
+			usernameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150),
 			
 			postTimeLabel.leadingAnchor.constraint(equalTo: usernameLabel.trailingAnchor),
 			postTimeLabel.bottomAnchor.constraint(equalTo: displaynameLabel.bottomAnchor),
 			
 			postParagraphLabel.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor),
 			postParagraphLabel.topAnchor.constraint(equalTo: displaynameLabel.bottomAnchor, constant: 5),
-			postParagraphLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-//			postParagraphLabel.heightAnchor.constraint(equalToConstant: 50),
+			postParagraphLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+			
+			buttonsStack.topAnchor.constraint(equalTo: postParagraphLabel.bottomAnchor, constant: 20),
+			buttonsStack.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor),
+			buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+			buttonsStack.rightAnchor.constraint(equalTo: postParagraphLabel.rightAnchor, constant: -10)
+
+			
 			
 		])
 		
-		// Buttons
-		let btnSpacing: CGFloat = 90
-		NSLayoutConstraint.activate([
-			replyBtn.topAnchor.constraint(equalTo: postParagraphLabel.bottomAnchor, constant: 20),
-			replyBtn.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor),
-			replyBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-			
-			retweetBtn.centerYAnchor.constraint(equalTo: replyBtn.centerYAnchor),
-			retweetBtn.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor, constant: btnSpacing * 1),
-			retweetBtn.bottomAnchor.constraint(equalTo: replyBtn.bottomAnchor),
-			
-			likeBtn.centerYAnchor.constraint(equalTo: replyBtn.centerYAnchor),
-			likeBtn.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor, constant: btnSpacing * 2),
-			likeBtn.bottomAnchor.constraint(equalTo: replyBtn.bottomAnchor),
-			
-			shareBtn.centerYAnchor.constraint(equalTo: replyBtn.centerYAnchor),
-			shareBtn.leftAnchor.constraint(equalTo: displaynameLabel.leftAnchor, constant: btnSpacing * 3),
-			shareBtn.bottomAnchor.constraint(equalTo: replyBtn.bottomAnchor),
-		])
 	}
 	
-	@objc func didTapReply(){
-		delegate?.postTableViewCellDelegateDidTapReply()
-	}
-	@objc func didTapRetweet(){
-		delegate?.postTableViewCellDelegateDidTapRetweet()
-	}
-	@objc func didTapLike(){
-		delegate?.postTableViewCellDelegateDidTapLike()
-	}
-	@objc func didTapShare(){
-		delegate?.postTableViewCellDelegateDidTapShare()
-	}
 	
 	private func configureButtons(){
-		replyBtn.addTarget(self, action: #selector(didTapReply), for: .touchUpInside)
-		replyBtn.addTarget(self, action: #selector(didTapRetweet), for: .touchUpInside)
-		replyBtn.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
-		replyBtn.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
+		
+		for (idx,btn) in buttonsStack.arrangedSubviews.enumerated() {
+			guard let btn = btn as? UIButton else {return}
+			btn.tag = idx
+			btn.addTarget(self, action: #selector(didTapTabBtn(_:)), for: .touchUpInside)
+		}
+	}
+	
+	@objc private func didTapTabBtn(_ sender: UIButton){
+		switch sender.tag{
+			case 0:
+				delegate?.postTableViewCellDelegateDidTapReply()
+			case 1:
+				delegate?.postTableViewCellDelegateDidTapRetweet()
+			case 2:
+				delegate?.postTableViewCellDelegateDidTapLike()
+			case 3:
+				delegate?.postTableViewCellDelegateDidTapShare()
+			default:
+				break
+				
+		}
 	}
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -193,13 +172,11 @@ class PostTableViewCell: UITableViewCell {
 		contentView.addSubview(usernameLabel)
 		contentView.addSubview(postTimeLabel)
 		contentView.addSubview(postParagraphLabel)
-		contentView.addSubview(replyBtn)
-		contentView.addSubview(retweetBtn)
-		contentView.addSubview(likeBtn)
-		contentView.addSubview(shareBtn)
-	
-		configureConstraints()
+		contentView.addSubview(buttonsStack)
+
 		configureButtons()
+		configureConstraints()
+		
 	}
 	
 	

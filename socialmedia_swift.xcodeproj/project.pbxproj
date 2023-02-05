@@ -52,7 +52,7 @@
 		6CC7FAF4298928AA009CCB33 = {
 			isa = PBXGroup;
 			children = (
-				6CC7FAFF298928AA009CCB33 /* socialmedia_app */,
+				6CC7FAFF298928AA009CCB33 /* socialmedia_swift */,
 				6CC7FAFE298928AA009CCB33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,7 +65,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CC7FAFF298928AA009CCB33 /* socialmedia_app */ = {
+		6CC7FAFF298928AA009CCB33 /* socialmedia_swift */ = {
 			isa = PBXGroup;
 			children = (
 				6CC7FB1929892A9E009CCB33 /* Managers */,
@@ -80,7 +80,7 @@
 				6CC7FB0B298928AC009CCB33 /* LaunchScreen.storyboard */,
 				6CC7FB0E298928AC009CCB33 /* Info.plist */,
 			);
-			path = socialmedia_app;
+			path = socialmedia_swift;
 			sourceTree = "<group>";
 		};
 		6CC7FB1429892A6F009CCB33 /* Controllers */ = {
@@ -385,7 +385,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S9R6HFZ747;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = twitterclone_swift/Info.plist;
+				INFOPLIST_FILE = socialmedia_swift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -395,7 +395,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jobie.twitterclone-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = socialmedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -412,7 +412,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S9R6HFZ747;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = twitterclone_swift/Info.plist;
+				INFOPLIST_FILE = socialmedia_swift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -422,7 +422,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jobie.twitterclone-swift";
+				PRODUCT_BUNDLE_IDENTIFIER = socialmedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

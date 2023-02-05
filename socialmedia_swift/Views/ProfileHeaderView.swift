@@ -171,7 +171,6 @@ class ProfileHeaderView: UIView {
 		btn.translatesAutoresizingMaskIntoConstraints = false
 		btn.setTitle(buttonTitle, for: .normal)
 		btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-		btn.tintColor = .secondaryLabel
 		
 		return btn
 	}
@@ -182,7 +181,7 @@ class ProfileHeaderView: UIView {
 		stack.distribution = .equalSpacing
 		stack.alignment = .center
 		stack.axis = .horizontal
-//		stack.backgroundColor = .purple
+		
 		return stack
 	}()
 	
@@ -190,13 +189,29 @@ class ProfileHeaderView: UIView {
 		for (idx,btn) in tabsStack.arrangedSubviews.enumerated(){
 			guard let btn = btn as? UIButton else {return}
 			btn.tag = idx
+			btn.tintColor = idx == 0 ? UIColor(named: "AccentColorBlue") : .secondaryLabel
 			btn.addTarget(self, action: #selector(didTapTabBtn(_:)), for: .touchUpInside)
 		}
 	}
 	
 	private var selectedTabIndex: Int = 0 {
 		didSet{
-			print(selectedTabIndex)
+			for i in 0..<tabs.count{
+				
+				//add animation on change
+				UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut) { [weak self] in
+					// if i==selectedIndex then color is blue else gray
+					self?.tabsStack.arrangedSubviews[i].tintColor = i == self?.selectedTabIndex ? UIColor(named: "AccentColorBlue") : .secondaryLabel
+					
+					// tabstack indicator
+					// if selected, add the leading and trailing constraint for the indicator,
+					// else turn off the constraint
+					self?.indicatorLeadTrail[i].leading.isActive = i == self?.selectedTabIndex ? true : false
+					
+					self?.indicatorLeadTrail[i].trailing.isActive = i == self?.selectedTabIndex ? true : false
+				}
+				
+			}
 		}
 	}
 	
@@ -204,10 +219,26 @@ class ProfileHeaderView: UIView {
 		selectedTabIndex = sender.tag
 	}
 	
+	private var indicatorLeadTrail: [(leading: NSLayoutConstraint, trailing: NSLayoutConstraint)] = []
 	
-
+	private let indicatorForTab: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = UIColor(named: "AccentColorBlue")
+		
+		return view
+	}()
 	
 	private func configureConstraints(){
+		
+		// indicator size per tab
+		for i in 0..<tabs.count {
+			let leadingAnchor = indicatorForTab.leadingAnchor.constraint(equalTo: tabsStack.arrangedSubviews[i].leadingAnchor)
+			let trailingAnchor = indicatorForTab.trailingAnchor.constraint(equalTo: tabsStack.arrangedSubviews[i].trailingAnchor)
+			
+			indicatorLeadTrail.append((leadingAnchor,trailingAnchor))
+		}
+		
 		NSLayoutConstraint.activate([
 			headerImageView.widthAnchor.constraint(equalTo: widthAnchor),
 			headerImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/3),
@@ -232,10 +263,14 @@ class ProfileHeaderView: UIView {
 			followView.topAnchor.constraint(equalTo: joineddateView.bottomAnchor, constant: 25),
 			
 			tabsStack.topAnchor.constraint(equalTo: followView.bottomAnchor, constant: 30),
-			
 			tabsStack.leftAnchor.constraint(equalTo: avatarImageView.leftAnchor),
 			tabsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
 			tabsStack.heightAnchor.constraint(equalToConstant: 40.0),
+			
+			indicatorForTab.topAnchor.constraint(equalTo: tabsStack.bottomAnchor),
+			indicatorForTab.heightAnchor.constraint(equalToConstant: 3),
+			indicatorLeadTrail[0].leading,
+			indicatorLeadTrail[0].trailing,
 			
 			
 		])
@@ -252,6 +287,7 @@ class ProfileHeaderView: UIView {
 		addSubview(joineddateView)
 		addSubview(followView)
 		addSubview(tabsStack)
+		addSubview(indicatorForTab)
 		
 		configureTabsStackBtns()
 		configureConstraints()

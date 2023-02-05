@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
 		let view = UIView()
 		view.backgroundColor = .systemBackground
 		view.layer.opacity = 0
-		view.layer.zPosition = 999
+		view.layer.zPosition = 99
 		return view
 	}()
 
@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
 	
 	private func configureConstraints(){
 		NSLayoutConstraint.activate([
-			 
+			profileTableView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 	}
 	
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
 		profileTableView.dataSource = self
 		
 		profileTableView.tableHeaderView = headerView
-		
+		configureConstraints()
 		
 		
     }
@@ -64,9 +64,11 @@ class ProfileViewController: UIViewController {
 		super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: animated)
 		profileTableView.contentInsetAdjustmentBehavior = .never
-		tabBarController?.tabBar.isTranslucent = false
+		
+		tabBarController?.tabBar.isTranslucent = true
+		tabBarController?.tabBar.layer.zPosition = 999
 		tabBarController?.tabBar.backgroundColor = .systemBackground
-
+		
 		 
 	}
 

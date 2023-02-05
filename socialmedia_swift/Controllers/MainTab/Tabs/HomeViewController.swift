@@ -36,10 +36,10 @@ class HomeViewController: UIViewController {
 	
 	
 	private func configureNavbar(){
-//		left nav item -> display photo
+		// left nav item -> display photo
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileButton)
 		
-//		middle nav item -> title logo
+		// middle nav item -> title logo
 		//view container for title
 		let titleView = UIView(frame: CGRect(x: 0, y: 0, width: iconSize, height: iconSize))
 		// add imageview in uiview
@@ -47,9 +47,7 @@ class HomeViewController: UIViewController {
 		//set nav title to the view created
 		navigationItem.titleView = titleView
 		
-//		right nav item -> 
-		
-		
+		//right nav item ->
 	}
 	
 	@objc func didTapProfile(){
@@ -89,6 +87,7 @@ class HomeViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		homefeedTable.frame = view.bounds
+		
 	}
     
 
@@ -96,7 +95,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return 1
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
