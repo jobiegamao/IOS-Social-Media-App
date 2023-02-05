@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		6C77660F298CB72500A7FB3C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
-		6CC7FAFD298928AA009CCB33 /* twitterclone_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitterclone_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CC7FAFD298928AA009CCB33 /* socialmedia_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = socialmedia_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC7FB00298928AA009CCB33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CC7FB02298928AA009CCB33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6CC7FB04298928AA009CCB33 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		6CC7FAF4298928AA009CCB33 = {
 			isa = PBXGroup;
 			children = (
-				6CC7FAFF298928AA009CCB33 /* twitterclone_swift */,
+				6CC7FAFF298928AA009CCB33 /* socialmedia_app */,
 				6CC7FAFE298928AA009CCB33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,12 +60,12 @@
 		6CC7FAFE298928AA009CCB33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CC7FAFD298928AA009CCB33 /* twitterclone_swift.app */,
+				6CC7FAFD298928AA009CCB33 /* socialmedia_swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CC7FAFF298928AA009CCB33 /* twitterclone_swift */ = {
+		6CC7FAFF298928AA009CCB33 /* socialmedia_app */ = {
 			isa = PBXGroup;
 			children = (
 				6CC7FB1929892A9E009CCB33 /* Managers */,
@@ -80,7 +80,7 @@
 				6CC7FB0B298928AC009CCB33 /* LaunchScreen.storyboard */,
 				6CC7FB0E298928AC009CCB33 /* Info.plist */,
 			);
-			path = twitterclone_swift;
+			path = socialmedia_app;
 			sourceTree = "<group>";
 		};
 		6CC7FB1429892A6F009CCB33 /* Controllers */ = {
@@ -168,9 +168,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6CC7FAFC298928AA009CCB33 /* twitterclone_swift */ = {
+		6CC7FAFC298928AA009CCB33 /* socialmedia_swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CC7FB11298928AC009CCB33 /* Build configuration list for PBXNativeTarget "twitterclone_swift" */;
+			buildConfigurationList = 6CC7FB11298928AC009CCB33 /* Build configuration list for PBXNativeTarget "socialmedia_swift" */;
 			buildPhases = (
 				6CC7FAF9298928AA009CCB33 /* Sources */,
 				6CC7FAFA298928AA009CCB33 /* Frameworks */,
@@ -180,9 +180,9 @@
 			);
 			dependencies = (
 			);
-			name = twitterclone_swift;
+			name = socialmedia_swift;
 			productName = twitterclone_swift;
-			productReference = 6CC7FAFD298928AA009CCB33 /* twitterclone_swift.app */;
+			productReference = 6CC7FAFD298928AA009CCB33 /* socialmedia_swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -200,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6CC7FAF8298928AA009CCB33 /* Build configuration list for PBXProject "twitterclone_swift" */;
+			buildConfigurationList = 6CC7FAF8298928AA009CCB33 /* Build configuration list for PBXProject "socialmedia_swift" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -213,7 +213,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6CC7FAFC298928AA009CCB33 /* twitterclone_swift */,
+				6CC7FAFC298928AA009CCB33 /* socialmedia_swift */,
 			);
 		};
 /* End PBXProject section */
@@ -433,7 +433,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6CC7FAF8298928AA009CCB33 /* Build configuration list for PBXProject "twitterclone_swift" */ = {
+		6CC7FAF8298928AA009CCB33 /* Build configuration list for PBXProject "socialmedia_swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CC7FB0F298928AC009CCB33 /* Debug */,
@@ -442,7 +442,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CC7FB11298928AC009CCB33 /* Build configuration list for PBXNativeTarget "twitterclone_swift" */ = {
+		6CC7FB11298928AC009CCB33 /* Build configuration list for PBXNativeTarget "socialmedia_swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CC7FB12298928AC009CCB33 /* Debug */,
