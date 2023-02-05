@@ -66,25 +66,32 @@ class ProfileHeaderView: UIView {
 		label.font = .systemFont(ofSize: 18, weight: .regular)
 		label.textColor = .label
 		label.text = "This is the tweet post. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-		label.numberOfLines = 3
+		label.numberOfLines = 2
 		return label
 
 	}()
 	
-	
-	private let joineddateView: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15))
-		imageView.tintColor = .secondaryLabel
-		
+	private var joineddateLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 16, weight: .regular)
 		label.textColor = .secondaryLabel
 		label.text = "Joined February 2023"
+		
+		return label
+	}()
+	
+	
+	lazy private var joineddateView: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))
+		imageView.tintColor = .secondaryLabel
+		
+		let label = self.joineddateLabel
 		
 		view.addSubview(imageView)
 		view.addSubview(label)
@@ -98,9 +105,107 @@ class ProfileHeaderView: UIView {
 
 	}()
 	
+	private var followingCount: UILabel = {
+		let count = UILabel()
+		count.translatesAutoresizingMaskIntoConstraints = false
+		count.font = .systemFont(ofSize: 16, weight: .bold)
+		count.textColor = .label
+		count.text = "2.5K"
+		
+		return count
+	}()
+	
+	private var followersCount: UILabel = {
+		let count = UILabel()
+		count.translatesAutoresizingMaskIntoConstraints = false
+		count.font = .systemFont(ofSize: 16, weight: .bold)
+		count.textColor = .label
+		count.text = "1.4M"
+		
+		return count
+	}()
 	
 	
+	lazy private var followView: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		
+		let followingCount = self.followingCount
+		let followingText = UILabel()
+		followingText.translatesAutoresizingMaskIntoConstraints = false
+		followingText.font = .systemFont(ofSize: 16, weight: .regular)
+		followingText.textColor = .secondaryLabel
+		followingText.text = "Following"
+		
+		view.addSubview(followingCount)
+		view.addSubview(followingText)
+		
+		
+		let followersCount = self.followersCount
+		let followersText = UILabel()
+		followersText.translatesAutoresizingMaskIntoConstraints = false
+		followersText.font = .systemFont(ofSize: 16, weight: .regular)
+		followersText.textColor = .secondaryLabel
+		followersText.text = "Followers"
+		
+		view.addSubview(followersCount)
+		view.addSubview(followersText)
+		
+		NSLayoutConstraint.activate([
+			followingText.leadingAnchor.constraint(equalTo: followingCount.trailingAnchor, constant: 5),
+			followingText.centerYAnchor.constraint(equalTo: followingCount.centerYAnchor),
+			
+			
+			followersCount.leadingAnchor.constraint(equalTo: followingText.trailingAnchor, constant: 10),
+			followersText.leadingAnchor.constraint(equalTo: followersCount.trailingAnchor, constant: 5),
+			followersText.centerYAnchor.constraint(equalTo: followersCount.centerYAnchor)
+		])
+		
+		return view
+
+	}()
 	
+	private var tabs: [UIButton] = ["Tweets", "Tweets & Replies", "Media", "Likes"].map {
+		buttonTitle in
+		let btn = UIButton(type: .system)
+		btn.translatesAutoresizingMaskIntoConstraints = false
+		btn.setTitle(buttonTitle, for: .normal)
+		btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+		btn.tintColor = .secondaryLabel
+		
+		return btn
+	}
+	
+	lazy private var tabsStack: UIStackView = {
+		let stack = UIStackView(arrangedSubviews: self.tabs)
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.distribution = .equalSpacing
+		stack.alignment = .center
+		stack.axis = .horizontal
+//		stack.backgroundColor = .purple
+		return stack
+	}()
+	
+	private func configureTabsStackBtns() {
+		for (idx,btn) in tabsStack.arrangedSubviews.enumerated(){
+			guard let btn = btn as? UIButton else {return}
+			btn.tag = idx
+			btn.addTarget(self, action: #selector(didTapTabBtn(_:)), for: .touchUpInside)
+		}
+	}
+	
+	private var selectedTabIndex: Int = 0 {
+		didSet{
+			print(selectedTabIndex)
+		}
+	}
+	
+	@objc func didTapTabBtn(_ sender: UIButton){
+		selectedTabIndex = sender.tag
+	}
+	
+	
+
 	
 	private func configureConstraints(){
 		NSLayoutConstraint.activate([
@@ -121,7 +226,16 @@ class ProfileHeaderView: UIView {
 			userbioLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
 			
 			joineddateView.leftAnchor.constraint(equalTo: avatarImageView.leftAnchor),
-			joineddateView.topAnchor.constraint(equalTo: userbioLabel.bottomAnchor, constant: 10)
+			joineddateView.topAnchor.constraint(equalTo: userbioLabel.bottomAnchor, constant: 10),
+			
+			followView.leftAnchor.constraint(equalTo: avatarImageView.leftAnchor),
+			followView.topAnchor.constraint(equalTo: joineddateView.bottomAnchor, constant: 25),
+			
+			tabsStack.topAnchor.constraint(equalTo: followView.bottomAnchor, constant: 30),
+			
+			tabsStack.leftAnchor.constraint(equalTo: avatarImageView.leftAnchor),
+			tabsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+			tabsStack.heightAnchor.constraint(equalToConstant: 40.0),
 			
 			
 		])
@@ -136,8 +250,10 @@ class ProfileHeaderView: UIView {
 		addSubview(usernameLabel)
 		addSubview(userbioLabel)
 		addSubview(joineddateView)
-
+		addSubview(followView)
+		addSubview(tabsStack)
 		
+		configureTabsStackBtns()
 		configureConstraints()
 		
 	}

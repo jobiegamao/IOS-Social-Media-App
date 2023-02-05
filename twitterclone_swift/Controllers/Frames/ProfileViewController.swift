@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
 	}()
 	
 	lazy private var headerView: UIView = {
-		let view = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 2/5))
+		let view = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/2))
 		return view
 	}()
 	
@@ -57,14 +57,15 @@ class ProfileViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		profileTableView.frame = view.bounds
-		statusBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 30)
-		print(statusBar.frame.height)
+		statusBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: animated)
 		profileTableView.contentInsetAdjustmentBehavior = .never
+		tabBarController?.tabBar.isTranslucent = false
+		tabBarController?.tabBar.backgroundColor = .systemBackground
 
 		 
 	}
