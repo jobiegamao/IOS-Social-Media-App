@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -48,6 +49,7 @@ class HomeViewController: UIViewController {
 		navigationItem.titleView = titleView
 		
 		//right nav item ->
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.portrait.and.arrow.right"), style: .plain, target: self, action: #selector(didTapLogout))
 	}
 	
 	@objc func didTapProfile(){
@@ -55,6 +57,11 @@ class HomeViewController: UIViewController {
 		let vc = ProfileViewController()
 		navigationController?.pushViewController(vc, animated: true)
 		
+	}
+	
+	@objc func didTapLogout(){
+		try? Auth.auth().signOut()
+		handleAuthentication()
 	}
 	
 	private func configureConstraints(){
@@ -74,13 +81,27 @@ class HomeViewController: UIViewController {
 		return tableView
 	}()
 	
+	private func handleAuthentication(){
+		//when not authenticated
+		if Auth.auth().currentUser == nil {
+			let vc = UINavigationController(rootViewController: OnboardingViewController())
+			vc.modalPresentationStyle = .fullScreen
+			present(vc, animated: false)
+		}
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-		configureNavbar()
+		
 		view.addSubview(homefeedTable)
 		homefeedTable.delegate = self
 		homefeedTable.dataSource = self
+		
+		
+		configureNavbar()
 		configureConstraints()
+		
+		
 		
     }
 	
@@ -88,6 +109,12 @@ class HomeViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		homefeedTable.frame = view.bounds
 		
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.isHidden = false
+		handleAuthentication()
 	}
     
 
@@ -121,19 +148,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 extension HomeViewController: PostTableViewCellDelegate {
 	
 	func postTableViewCellDelegateDidTapReply() {
-		print("button tapped")
+		print("reply tapped")
 	}
 	
 	func postTableViewCellDelegateDidTapRetweet() {
-		print("button tapped")
+		print("retweet tapped")
 	}
 	
 	func postTableViewCellDelegateDidTapLike() {
-		print("button tapped")
+		print("like tapped")
 	}
 	
 	func postTableViewCellDelegateDidTapShare() {
-		print("button tapped")
+		print("share tapped")
 	}
 	
 	

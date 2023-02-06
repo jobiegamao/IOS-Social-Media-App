@@ -51,13 +51,13 @@ class ProfileViewController: UIViewController {
 		profileTableView.tableHeaderView = headerView
 		configureConstraints()
 		
-		
     }
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		profileTableView.frame = view.bounds
+		profileTableView.frame = view.frame
 		statusBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25)
+
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -66,8 +66,8 @@ class ProfileViewController: UIViewController {
 		profileTableView.contentInsetAdjustmentBehavior = .never
 		
 		tabBarController?.tabBar.isTranslucent = true
-		tabBarController?.tabBar.layer.zPosition = 999
 		tabBarController?.tabBar.backgroundColor = .systemBackground
+		
 		
 		 
 	}
@@ -75,6 +75,8 @@ class ProfileViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		navigationController?.setNavigationBarHidden(false, animated: animated)
+		tabBarController?.tabBar.isTranslucent = true
+		tabBarController?.tabBar.barTintColor = UIColor.systemBackground
 	}
 	
 

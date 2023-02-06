@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/may/Documents/Code/xcode swift/twitterclone_swift/socialmedia_swift.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

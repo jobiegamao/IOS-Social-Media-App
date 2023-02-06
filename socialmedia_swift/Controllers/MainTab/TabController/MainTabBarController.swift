@@ -15,7 +15,9 @@ class MainTabBarController: UITabBarController {
 		NotificationsViewController()
 	]
 	
-	private var tabs: [UINavigationController] = []
+	lazy private var tabs: [UINavigationController] = tabs_root.map{ vc in
+		return UINavigationController(rootViewController: vc)
+	}
 	
 	private let tabImage = [
 		"house",
@@ -33,10 +35,6 @@ class MainTabBarController: UITabBarController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		tabs = tabs_root.map{ root in
-			UINavigationController(rootViewController: root)
-		}
 		
 		for (index, tab) in tabs.enumerated() {
 			tab.tabBarItem.image = UIImage(systemName: tabImage[index])
