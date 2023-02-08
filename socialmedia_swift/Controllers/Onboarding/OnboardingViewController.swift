@@ -22,7 +22,7 @@ class OnboardingViewController: UIViewController {
 		
 	}()
 	
-	lazy private var signUpBtn: UIButton = {
+	private lazy var signUpBtn: UIButton = {
 		let btn = UIButton(type: .system)
 		btn.translatesAutoresizingMaskIntoConstraints = false
 		btn.setTitle("Create Account", for: .normal)
@@ -41,7 +41,7 @@ class OnboardingViewController: UIViewController {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
-	lazy private var loginBtn: UIButton = {
+	private lazy var loginBtn: UIButton = {
 		let btn = UIButton(type: .system)
 		btn.translatesAutoresizingMaskIntoConstraints = false
 		btn.setTitle("Login", for: .normal)
@@ -68,7 +68,7 @@ class OnboardingViewController: UIViewController {
 		return label
 	}()
 	
-	lazy private var loginView: UIStackView = {
+	private lazy var loginView: UIStackView = {
 		let view = UIStackView(arrangedSubviews: [loginLabel,loginBtn])
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.alignment = .center

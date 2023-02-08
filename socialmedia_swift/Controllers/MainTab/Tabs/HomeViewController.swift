@@ -7,9 +7,13 @@
 
 import UIKit
 import FirebaseAuth
+import Combine
 
 class HomeViewController: UIViewController {
 
+	private var viewModel = HomeViewViewModel()
+	private var subscriptions: Set<AnyCancellable> = []
+	
 	private var iconSize: CGFloat = 30
 	
 	private lazy var profileButton: UIButton = {
@@ -37,6 +41,7 @@ class HomeViewController: UIViewController {
 	
 	
 	private func configureNavbar(){
+
 		// left nav item -> display photo
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileButton)
 		
@@ -63,13 +68,13 @@ class HomeViewController: UIViewController {
 		try? Auth.auth().signOut()
 		handleAuthentication()
 	}
+
 	
-	private func configureConstraints(){
-		
-		NSLayoutConstraint.activate([
-			
-		])
-	}
+	private lazy var headerView: UIView = {
+		let view = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/8))
+		view.backgroundColor = .clear
+		return view
+	}()
 	
 	private let homefeedTable: UITableView = {
 		let tableView = UITableView()
@@ -90,6 +95,31 @@ class HomeViewController: UIViewController {
 		}
 	}
 	
+	private func completeUserOnboarding(){
+		let vc = ProfileDataViewController()
+		present(vc, animated: true)
+	}
+	
+	
+	
+	private func bindViews(){
+		viewModel.$user.sink { [weak self] user in
+			guard let user = user else {return}
+			if !user.isUserOnboarded {
+				self?.completeUserOnboarding()
+			}
+		}
+		.store(in: &subscriptions)
+		
+	}
+	
+	private func configureConstraints(){
+		
+		NSLayoutConstraint.activate([
+			
+		])
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -97,12 +127,13 @@ class HomeViewController: UIViewController {
 		homefeedTable.delegate = self
 		homefeedTable.dataSource = self
 		
-		
 		configureNavbar()
 		configureConstraints()
 		
+		homefeedTable.tableHeaderView = headerView
 		
-		
+		bindViews()
+
     }
 	
 	override func viewDidLayoutSubviews() {
@@ -115,14 +146,20 @@ class HomeViewController: UIViewController {
 		super.viewWillAppear(animated)
 		navigationController?.navigationBar.isHidden = false
 		handleAuthentication()
+		viewModel.retreiveUser()
 	}
+	
+	
+	
+	
+	
     
 
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return 20
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

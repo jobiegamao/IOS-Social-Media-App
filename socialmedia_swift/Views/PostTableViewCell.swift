@@ -91,7 +91,7 @@ class PostTableViewCell: UITableViewCell {
 		return btn
 	}
 	
-	lazy private var buttonsStack: UIStackView = {
+	private lazy var buttonsStack: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: self.buttons)
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.distribution = .equalSpacing

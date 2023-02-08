@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
 		NotificationsViewController()
 	]
 	
-	lazy private var tabs: [UINavigationController] = tabs_root.map{ vc in
+	private lazy var tabs: [UINavigationController] = tabs_root.map{ vc in
 		return UINavigationController(rootViewController: vc)
 	}
 	
@@ -35,6 +35,9 @@ class MainTabBarController: UITabBarController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		tabBarController?.tabBar.backgroundColor = .clear
+		tabBarController?.tabBar.isTranslucent = true
 		
 		for (index, tab) in tabs.enumerated() {
 			tab.tabBarItem.image = UIImage(systemName: tabImage[index])

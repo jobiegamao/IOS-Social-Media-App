@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
 		return table
 	}()
 	
-	lazy private var headerView: UIView = {
+	private lazy var headerView: UIView = {
 		let view = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/2))
 		return view
 	}()

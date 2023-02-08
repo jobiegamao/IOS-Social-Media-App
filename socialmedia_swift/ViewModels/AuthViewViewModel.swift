@@ -19,7 +19,7 @@ final class AuthViewViewModel: ObservableObject {
 	@Published var email: String?
 	@Published var password: String?
 	@Published var isAuthenticationValid: Bool = false
-	@Published var user: User?
+	@Published var user: User? // from Auth Library
 	@Published var error: Error?
 	
 	private var subscriptions: Set<AnyCancellable> = []
@@ -52,15 +52,30 @@ final class AuthViewViewModel: ObservableObject {
 	func createUser(){
 		guard let email = email, let password = password else { return }
 		AuthManager.shared.registerUser(with: email, password: password)
-			.sink { [weak self] result in //error
+			.handleEvents(receiveOutput: { [weak self] user in
+				self?.user = user
+			})
+			.sink { [weak self] result in
 				if case .failure(let error) = result {
 					self?.error = error
 				}
-					
-			} receiveValue: { [weak self] user in //
-				self?.user = user
+			} receiveValue: { [weak self] user in
+				self?.saveUserInDB(for: user)
 			}
 			.store(in: &subscriptions)
+	}
+	
+	func saveUserInDB(for user: User){
+		DatabaseManager.shared.collectionUsers(add: user)
+			.sink { [weak self] result in
+				if case .failure(let error) = result {
+					self?.error = error
+				}
+			} receiveValue: { bool in
+				print("Adding user in db: \(bool)")
+			}
+			.store(in: &subscriptions)
+
 	}
 	
 	func loginUser(){
@@ -76,3 +91,35 @@ final class AuthViewViewModel: ObservableObject {
 			.store(in: &subscriptions)
 	}
 }
+
+
+/*
+ 
+ necessary structure of it
+ .sink{}
+ .receive{}
+ .store()
+ 
+ .handleEvents(receiveOutput:) is there to access the return value of the func above
+ 
+
+ // when ERROR
+	 .sink { [weak self] result in
+		 if case .failure(let error) = result {
+			 self?.error = error
+		 }
+	 }
+ 
+ // when SUCCESS
+	// get the output given
+	 .handleEvents(receiveOutput: { [weak self] user in
+		 self?.user = user
+	 })
+ 
+	// call function in success closure
+	 receiveValue: { [weak self] user in //
+		 self?.saveUserInDB
+	 }
+ 
+ 
+ */

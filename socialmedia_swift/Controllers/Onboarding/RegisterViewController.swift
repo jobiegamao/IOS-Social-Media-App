@@ -23,60 +23,20 @@ class RegisterViewController: UIViewController {
 		return label
 	}()
 	
-	private let emailTextfield: UITextField = {
-		let field = UITextField()
-		field.translatesAutoresizingMaskIntoConstraints = false
-		field.backgroundColor = .systemBackground
-		field.layer.cornerRadius = 8.0
-		field.layer.masksToBounds = true
-		field.layer.borderWidth = 1.0
-		field.layer.borderColor = UIColor(named: "AccentColorBlue")?.cgColor
-		
-		//left padding in text
-		field.leftView = UIView(
-			frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: field.frame.height))
-		field.leftViewMode = .always
-		
-		field.keyboardAppearance = .default
-		field.keyboardType = .emailAddress
-		field.placeholder = "Email"
-		
+	private let emailTextfield: CustomTextField = {
+		let field = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
 		return field
 	}()
 	
-	private let passwordTextfield: UITextField = {
-		let field = UITextField()
-		field.translatesAutoresizingMaskIntoConstraints = false
-		
-		field.backgroundColor = .systemBackground
-		field.layer.cornerRadius = 8.0
-		field.layer.masksToBounds = true
-		field.layer.borderWidth = 1.0
-		field.layer.borderColor = UIColor(named: "AccentColorBlue")?.cgColor
-		field.keyboardAppearance = .default
-		
-		//left padding in text
-		field.leftView = UIView(
-			frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: field.frame.height))
-		field.leftViewMode = .always
-		
-		
-		field.placeholder = "Password"
+	private let passwordTextfield: CustomTextField = {
+		let field = CustomTextField(placeholder: "Password")
 		field.isSecureTextEntry = true
 		
 		return field
 	}()
 	
-	lazy private var signUpBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setTitle("Create account", for: .normal)
-		btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-		btn.backgroundColor = UIColor(named: "AccentColorBlue")
-		btn.tintColor = .white
-		btn.layer.cornerRadius = 25
-		
-		btn.isEnabled = false
+	private lazy var signUpBtn: CustomOvalButton = {
+		let btn = CustomOvalButton(title: "Create account")
 		btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
 		
 		return btn

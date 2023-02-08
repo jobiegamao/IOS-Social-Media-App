@@ -20,19 +20,9 @@ class ProfileHeaderView: UIView {
 		return imageView
 	}()
 	
-	private let avatarImageView: UIImageView = {
-		let imageView = UIImageView()
-		let circleSize = 100.0
-		imageView.contentMode = .scaleAspectFill
-		imageView.translatesAutoresizingMaskIntoConstraints = false
+	private let avatarImageView: CustomCircleImageView = {
+		let imageView = CustomCircleImageView(height: 100)
 		imageView.image = UIImage(named: "profile")
-		imageView.clipsToBounds = true
-		NSLayoutConstraint.activate([
-			imageView.widthAnchor.constraint(equalToConstant: circleSize),
-			imageView.heightAnchor.constraint(equalToConstant: circleSize),
-		])
-		imageView.layer.cornerRadius = circleSize / 2
-		imageView.layer.borderColor = UIColor.systemBackground.cgColor
 		imageView.layer.borderWidth = 2
 		
 		return imageView
@@ -194,6 +184,16 @@ class ProfileHeaderView: UIView {
 		}
 	}
 	
+	private var indicatorLeadTrail: [(leading: NSLayoutConstraint, trailing: NSLayoutConstraint)] = []
+	
+	private let indicatorForTab: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = UIColor(named: "AccentColorBlue")
+		
+		return view
+	}()
+	
 	private var selectedTabIndex: Int = 0 {
 		didSet{
 			for i in 0..<tabs.count{
@@ -203,12 +203,16 @@ class ProfileHeaderView: UIView {
 					// if i==selectedIndex then color is blue else gray
 					self?.tabsStack.arrangedSubviews[i].tintColor = i == self?.selectedTabIndex ? UIColor(named: "AccentColorBlue") : .secondaryLabel
 					
+				}
+				
+				UIView.animate(withDuration: 0.4, delay: 1, options: .curveEaseIn) { [weak self] in
+					
 					// tabstack indicator
 					// if selected, add the leading and trailing constraint for the indicator,
 					// else turn off the constraint
 					self?.indicatorLeadTrail[i].leading.isActive = i == self?.selectedTabIndex ? true : false
-					
 					self?.indicatorLeadTrail[i].trailing.isActive = i == self?.selectedTabIndex ? true : false
+				
 				}
 				
 			}
@@ -219,15 +223,7 @@ class ProfileHeaderView: UIView {
 		selectedTabIndex = sender.tag
 	}
 	
-	private var indicatorLeadTrail: [(leading: NSLayoutConstraint, trailing: NSLayoutConstraint)] = []
 	
-	private let indicatorForTab: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = UIColor(named: "AccentColorBlue")
-		
-		return view
-	}()
 	
 	private func configureConstraints(){
 		
