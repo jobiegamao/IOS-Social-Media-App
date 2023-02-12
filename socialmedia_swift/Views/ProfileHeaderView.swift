@@ -21,10 +21,8 @@ class ProfileHeaderView: UIView {
 	}()
 	
 	private let avatarImageView: CustomCircleImageView = {
-		let imageView = CustomCircleImageView(height: 100)
+		let imageView = CustomCircleImageView(frame: .zero, size: 100)
 		imageView.image = UIImage(named: "profile")
-		imageView.layer.borderWidth = 2
-		
 		return imageView
 	}()
 	

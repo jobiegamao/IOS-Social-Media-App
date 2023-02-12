@@ -15,15 +15,14 @@ class HomeHeaderView: UIView {
 		btn.translatesAutoresizingMaskIntoConstraints = false
 		btn.setTitle(buttonTitle, for: .normal)
 		btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-		
+		btn.setTitleColor(.label, for: .normal)
 		return btn
 	}
 	
 	lazy private var tabsStack: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: self.tabs)
 		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.distribution = .fillEqually
-		stack.spacing = 5.0
+		stack.distribution = .equalSpacing
 		stack.alignment = .center
 		stack.axis = .horizontal
 		
@@ -90,10 +89,9 @@ class HomeHeaderView: UIView {
 		
 		NSLayoutConstraint.activate([
 			
-			tabsStack.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-//			tabsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-//			tabsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-			tabsStack.widthAnchor.constraint(equalTo: widthAnchor),
+			tabsStack.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+			tabsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
+			tabsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -80),
 			tabsStack.heightAnchor.constraint(equalToConstant: 40.0),
 			
 			indicatorForTab.topAnchor.constraint(equalTo: tabsStack.bottomAnchor),
@@ -107,7 +105,6 @@ class HomeHeaderView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = .clear
 		
 		addSubview(tabsStack)
 		addSubview(indicatorForTab)

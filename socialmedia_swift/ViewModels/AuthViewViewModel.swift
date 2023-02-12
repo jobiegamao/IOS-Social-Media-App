@@ -38,15 +38,10 @@ final class AuthViewViewModel: ObservableObject {
 	}
 	
 	func isValidPassword(password: String) -> Bool {
-		let valid: Bool
+		guard password.count > 5
+		else{return false}
 		
-		if password.count >= 8 {
-			valid = true
-		} else {
-			valid = false
-		}
-		
-		return valid
+		return true
 	}
 	
 	func createUser(){

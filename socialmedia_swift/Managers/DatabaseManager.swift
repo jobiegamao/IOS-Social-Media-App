@@ -24,23 +24,26 @@ class DatabaseManager {
 		let userAccount = UserAccount(from: user)
 		
 		return db.collection(usersPath).document(userAccount.id).setData(from: userAccount)
-			.map{ _ in
-				return true
-			}
+			.map{ _ in true }
 			.eraseToAnyPublisher()
 	}
 	
-	func collectionUsers(retreive id: String) ->AnyPublisher<UserAccount, Error>{
+	func collectionUsers(retreive id: String) -> AnyPublisher<UserAccount, Error>{
 		db.collection(usersPath).document(id).getDocument()
-			.tryMap{
-				try $0.data(as: UserAccount.self)
-			}
+			.tryMap{ try $0.data(as: UserAccount.self) }
 			.eraseToAnyPublisher()
 	}
+	
+	func collectionUsers(for id: String, update fields: [String: Any]) -> AnyPublisher<Bool, Error>{
+		db.collection(usersPath).document(id).updateData(fields)
+			.map { _ in true }
+			.eraseToAnyPublisher()
+	}
+	
 }
 
 
-/**
+/*
  NOTES:
  
  // the database
@@ -59,4 +62,4 @@ class DatabaseManager {
 	- .document(UNIQUE ID)
 	- .setData(STRUCT DATA TO PUT)
  
- /***/*/
+*/

@@ -12,13 +12,7 @@ class ProfileViewController: UIViewController {
 //	statusbar to appear on scroll only
 //	updated by viewdidscroll
 	private var isStatusBarHidden = true
-	private let statusBar: UIView = {
-		let view = UIView()
-		view.backgroundColor = .systemBackground
-		view.layer.opacity = 0
-		view.layer.zPosition = 99
-		return view
-	}()
+	private lazy var statusBar = StatusBarView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25))
 
 	private let profileTableView: UITableView = {
 		let table = UITableView()
@@ -30,11 +24,13 @@ class ProfileViewController: UIViewController {
 	
 	private lazy var headerView: UIView = {
 		let view = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/2))
+		view.translatesAutoresizingMaskIntoConstraints = true
 		return view
 	}()
 	
 	private func configureConstraints(){
 		NSLayoutConstraint.activate([
+			profileTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
 			profileTableView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 	}
@@ -43,7 +39,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 		self.view.backgroundColor = .systemBackground
 		
-		view.addSubview(statusBar)
+		self.navigationController?.view.addSubview(statusBar)
 		view.addSubview(profileTableView)
 		profileTableView.delegate = self
 		profileTableView.dataSource = self
@@ -56,7 +52,6 @@ class ProfileViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		profileTableView.frame = view.frame
-		statusBar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25)
 
 	}
 	
@@ -65,8 +60,6 @@ class ProfileViewController: UIViewController {
 		navigationController?.setNavigationBarHidden(true, animated: animated)
 		profileTableView.contentInsetAdjustmentBehavior = .never
 		
-		tabBarController?.tabBar.isTranslucent = true
-		tabBarController?.tabBar.backgroundColor = .systemBackground
 		
 		
 		 
@@ -75,8 +68,6 @@ class ProfileViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		navigationController?.setNavigationBarHidden(false, animated: animated)
-		tabBarController?.tabBar.isTranslucent = true
-		tabBarController?.tabBar.barTintColor = UIColor.systemBackground
 	}
 	
 

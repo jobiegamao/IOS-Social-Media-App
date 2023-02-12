@@ -20,14 +20,8 @@ class PostTableViewCell: UITableViewCell {
 	
 	weak var delegate: PostTableViewCellDelegate?
 	
-	private let avatarImageView: UIImageView = {
-		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.contentMode = .scaleAspectFill
-		imageView.layer.cornerRadius = 25
-		imageView.layer.masksToBounds = true
-		imageView.clipsToBounds = true
-		imageView.backgroundColor = .darkGray
+	private let avatarImageView: CustomCircleImageView = {
+		let imageView = CustomCircleImageView(frame: .zero, size: 50)
 		imageView.image = UIImage(named: "profile")
 		return imageView
 	}()
@@ -106,10 +100,8 @@ class PostTableViewCell: UITableViewCell {
 		
 		// Texts
 		NSLayoutConstraint.activate([
-			avatarImageView.widthAnchor.constraint(equalToConstant: 50),
-			avatarImageView.heightAnchor.constraint(equalToConstant: 50),
-			avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-			avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+			avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+			avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
 			
 			displaynameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 5),
 			displaynameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),

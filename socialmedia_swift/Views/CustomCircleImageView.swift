@@ -9,20 +9,34 @@ import UIKit
 
 class CustomCircleImageView: UIImageView {
 
-	convenience init(height: Double) {
-		self.init()
-		self.translatesAutoresizingMaskIntoConstraints = false
-		self.clipsToBounds = true
-		self.layer.masksToBounds = true
-		self.backgroundColor = .lightGray
-		self.tintColor = .gray
-		self.isUserInteractionEnabled = true
-		self.layer.cornerRadius = height / 2
-		self.contentMode = .scaleAspectFill
-		
+	
+	init(frame: CGRect, size: Double = 50) {
+		super.init(frame: frame)
+		translatesAutoresizingMaskIntoConstraints = false
+		layer.cornerRadius = size / 2
+		clipsToBounds = true
+		layer.masksToBounds = true
+		backgroundColor = .lightGray
+		tintColor = .gray
+		isUserInteractionEnabled = true
+		contentMode = .scaleAspectFill
+		layer.borderWidth = 2
 		NSLayoutConstraint.activate([
-			self.widthAnchor.constraint(equalToConstant: height),
-			self.heightAnchor.constraint(equalToConstant: height),
+			self.widthAnchor.constraint(equalToConstant: size),
+			self.heightAnchor.constraint(equalToConstant: size),
 		])
+		
 	}
+	
+	override func layoutSubviews() {
+		layer.borderColor = UIColor.systemBackground.cgColor
+		
+	}
+	
+	required init?(coder: NSCoder) {
+			fatalError("init(coder:) has not been implemented")
+	}
+	
+	
+	
 }

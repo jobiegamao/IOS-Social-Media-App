@@ -18,6 +18,9 @@ class CustomOvalButton: UIButton {
 		self.tintColor = .white
 		self.layer.cornerRadius = height / 2
 		self.heightAnchor.constraint(equalToConstant: height).isActive = true
+		
 		self.isEnabled = false
+		self.setTitleColor(UIColor.init(white: 1, alpha: 0.3), for: .disabled)
+		self.setTitleColor(.white, for: .normal)
 	}
 }

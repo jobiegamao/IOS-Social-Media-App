@@ -7,13 +7,15 @@
 
 import UIKit
 
+
 class CustomTextView: UITextView {
+	
 	var padding: CGFloat = 5.0
 	var borderColor: UIColor = UIColor.systemGray4
 	var selectedBorderColor: UIColor? = UIColor(named: "AccentColorBlue")
 	var bcgColor: UIColor = .secondarySystemFill
 	
-	private lazy var placeholderLabel: UILabel = {
+	lazy var placeholderLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.textColor = .lightGray
@@ -21,8 +23,9 @@ class CustomTextView: UITextView {
 	}()
 	
 	
-	convenience init(placeholder: String = "", fontSize: Double = 17.0) {
-		self.init()
+	 init(placeholder: String, fontSize: Double = 17.0) {
+		super.init(frame: .zero, textContainer: nil)
+		 
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.backgroundColor = bcgColor
 		self.layer.cornerRadius = 8
@@ -43,11 +46,18 @@ class CustomTextView: UITextView {
 		self.delegate = self
 	}
 	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	
+	
 }
 
 extension CustomTextView: UITextViewDelegate {
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
+		print("CustomTextView UITextViewDelegate")
 		placeholderLabel.isHidden = true
 		layer.borderColor = selectedBorderColor?.cgColor
 		
