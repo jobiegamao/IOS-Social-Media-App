@@ -20,51 +20,42 @@ class ProfileHeaderView: UIView {
 		return imageView
 	}()
 	
-	private let avatarImageView: CustomCircleImageView = {
-		let imageView = CustomCircleImageView(frame: .zero, size: 100)
-		imageView.image = UIImage(named: "profile")
-		return imageView
-	}()
+	let avatarImageView = CustomCircleImageView(frame: .zero, size: 100)
 	
-	private let displaynameLabel: UILabel = {
+	let displaynameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 25, weight: .bold)
 		label.textColor = .label
-		label.text = "Jane Doe"
 		
 		return label
 
 	}()
 	
-	private let usernameLabel: UILabel = {
+	let usernameLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 18, weight: .regular)
 		label.textColor = .secondaryLabel
-		label.text = "@janethefabulousDoe"
-		
 		return label
 
 	}()
 	
-	private let userbioLabel: UILabel = {
+	let userbioLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 18, weight: .regular)
 		label.textColor = .label
-		label.text = "This is the tweet post. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 		label.numberOfLines = 2
 		return label
 
 	}()
 	
-	private var joineddateLabel: UILabel = {
+	let joineddateLabel: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .systemFont(ofSize: 16, weight: .regular)
 		label.textColor = .secondaryLabel
-		label.text = "Joined February 2023"
 		
 		return label
 	}()
@@ -93,23 +84,20 @@ class ProfileHeaderView: UIView {
 
 	}()
 	
-	private var followingCount: UILabel = {
+	let followingCount: UILabel = {
 		let count = UILabel()
 		count.translatesAutoresizingMaskIntoConstraints = false
 		count.font = .systemFont(ofSize: 16, weight: .bold)
 		count.textColor = .label
-		count.text = "2.5K"
 		
 		return count
 	}()
 	
-	private var followersCount: UILabel = {
+	let followersCount: UILabel = {
 		let count = UILabel()
 		count.translatesAutoresizingMaskIntoConstraints = false
 		count.font = .systemFont(ofSize: 16, weight: .bold)
 		count.textColor = .label
-		count.text = "1.4M"
-		
 		return count
 	}()
 	

@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Combine
+import SDWebImage
 
 class ProfileViewController: UIViewController {
 	
-//	statusbar to appear on scroll only
-//	updated by viewdidscroll
+	private let viewModel = ProfileViewViewModel()
+	private var subscriptions: Set<AnyCancellable> = []
+	
+	//statusbar to appear on scroll only. updated by viewdidscroll
 	private var isStatusBarHidden = true
 	private lazy var statusBar = StatusBarView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25))
 
@@ -22,17 +26,33 @@ class ProfileViewController: UIViewController {
 		return table
 	}()
 	
-	private lazy var headerView: UIView = {
-		let view = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/2))
-		view.translatesAutoresizingMaskIntoConstraints = true
-		return view
-	}()
+	private lazy var headerView = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * 1/2 + 20))
 	
 	private func configureConstraints(){
 		NSLayoutConstraint.activate([
-			profileTableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
-			profileTableView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
+	}
+	
+	private func bindViews(){
+		viewModel.$user.sink { [weak self] userAccount in
+			guard let user = userAccount, let header = self?.headerView else {return}
+			
+			header.avatarImageView.sd_setImage(with: URL(string: user.avatarPath), placeholderImage: UIImage(named: "profile"), context: [:])
+			header.displaynameLabel.text = user.displayName
+			header.usernameLabel.text = "@" + user.username
+			header.followersCount.text = "\(user.followersCount)"
+			header.followingCount.text = "\(user.followingCount)"
+			header.userbioLabel.text = user.bio
+		}
+		.store(in: &subscriptions)
+		
+	}
+	
+	private func configureProfileTable(){
+		profileTableView.tableHeaderView = headerView
+		view.addSubview(profileTableView)
+		profileTableView.delegate = self
+		profileTableView.dataSource = self
 	}
 	
     override func viewDidLoad() {
@@ -40,29 +60,26 @@ class ProfileViewController: UIViewController {
 		self.view.backgroundColor = .systemBackground
 		
 		self.navigationController?.view.addSubview(statusBar)
-		view.addSubview(profileTableView)
-		profileTableView.delegate = self
-		profileTableView.dataSource = self
 		
-		profileTableView.tableHeaderView = headerView
+		configureProfileTable()
 		configureConstraints()
+		bindViews()
 		
     }
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		profileTableView.frame = view.frame
-
 	}
+
+	
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: animated)
 		profileTableView.contentInsetAdjustmentBehavior = .never
 		
-		
-		
-		 
+		viewModel.retreiveUser()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
