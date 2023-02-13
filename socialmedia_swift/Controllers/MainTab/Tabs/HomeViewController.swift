@@ -52,6 +52,8 @@ class HomeViewController: UIViewController {
 //		}
 //	}
 	private func configureNavbar(){
+		
+		navigationController?.hidesBarsOnSwipe = true
 
 		// left nav item -> display photo
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileButton)
@@ -157,7 +159,6 @@ class HomeViewController: UIViewController {
 		navigationController?.navigationBar.shadowImage = UIImage()
 		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 		
-		navigationController?.hidesBarsOnSwipe = true
 		
 		handleAuthentication()
 		viewModel.retreiveUser()

@@ -29,7 +29,6 @@
 		6CC4871E2996AD4300FCB79D /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC4871D2996AD4300FCB79D /* StatusBarView.swift */; };
 		6CC4C463299775A4005FDE65 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC4C462299775A4005FDE65 /* HomeTabBarController.swift */; };
 		6CC4C467299775CF005FDE65 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC4C466299775CF005FDE65 /* FollowingViewController.swift */; };
-		6CC4C46929979058005FDE65 /* IndicatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC4C46829979058005FDE65 /* IndicatorLineView.swift */; };
 		6CC4C46B2998EBC5005FDE65 /* HomeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC4C46A2998EBC5005FDE65 /* HomeBarView.swift */; };
 		6CC7FB01298928AA009CCB33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB00298928AA009CCB33 /* AppDelegate.swift */; };
 		6CC7FB03298928AA009CCB33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7FB02298928AA009CCB33 /* SceneDelegate.swift */; };
@@ -67,7 +66,6 @@
 		6CC4871D2996AD4300FCB79D /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		6CC4C462299775A4005FDE65 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		6CC4C466299775CF005FDE65 /* FollowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
-		6CC4C46829979058005FDE65 /* IndicatorLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorLineView.swift; sourceTree = "<group>"; };
 		6CC4C46A2998EBC5005FDE65 /* HomeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBarView.swift; sourceTree = "<group>"; };
 		6CC7FAFD298928AA009CCB33 /* socialmedia_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = socialmedia_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC7FB00298928AA009CCB33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				6CCB5F2B29937D0500EA5E5C /* CustomOvalButton.swift */,
 				6CCB5F2D29939C4F00EA5E5C /* CustomCircleImageView.swift */,
 				6CC4871D2996AD4300FCB79D /* StatusBarView.swift */,
-				6CC4C46829979058005FDE65 /* IndicatorLineView.swift */,
 				6CC4C46A2998EBC5005FDE65 /* HomeBarView.swift */,
 			);
 			path = Views;
@@ -376,7 +373,6 @@
 				6CC4871E2996AD4300FCB79D /* StatusBarView.swift in Sources */,
 				6CC438E22991700700049E48 /* HomeHeaderView.swift in Sources */,
 				6C31AF8E2998FF30008EBBB6 /* PostTableView.swift in Sources */,
-				6CC4C46929979058005FDE65 /* IndicatorLineView.swift in Sources */,
 				6CC7FB2529892B80009CCB33 /* NotificationsViewController.swift in Sources */,
 				6C81F601298FE761004D11BB /* OnboardingViewController.swift in Sources */,
 				6CCB5F2E29939C4F00EA5E5C /* CustomCircleImageView.swift in Sources */,

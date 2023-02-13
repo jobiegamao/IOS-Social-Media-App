@@ -202,15 +202,10 @@ class ProfileHeaderView: UIView {
 					self?.tabsStack.arrangedSubviews[i].tintColor = i == self?.selectedTabIndex ? UIColor(named: "AccentColorBlue") : .secondaryLabel
 					
 				}
-				
-				UIView.animate(withDuration: 0.4, delay: 1, options: .curveEaseIn) { [weak self] in
-					
-					// tabstack indicator
-					// if selected, add the leading and trailing constraint for the indicator,
-					// else turn off the constraint
-					self?.indicatorLeadTrail[i].leading.isActive = i == self?.selectedTabIndex ? true : false
-					self?.indicatorLeadTrail[i].trailing.isActive = i == self?.selectedTabIndex ? true : false
-				
+				indicatorLeadTrail[i].leading.isActive = i == selectedTabIndex ? true : false
+				indicatorLeadTrail[i].trailing.isActive = i == selectedTabIndex ? true : false
+				UIView.animate(withDuration: 0.4, delay: 0) { [weak self] in
+					self?.layoutIfNeeded()
 				}
 				
 			}

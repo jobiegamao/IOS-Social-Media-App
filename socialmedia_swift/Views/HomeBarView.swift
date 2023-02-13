@@ -11,28 +11,39 @@ class HomeBarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate,
 	
 	private let homeBarTabs = ["For you", "Following"]
 
-	private let collectionView: UICollectionView = {
+	private let tabsCollectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
 		let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
 		cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
 		cv.translatesAutoresizingMaskIntoConstraints = false
 		return cv
 	}()
-	
 	private func configureCollectionView(){
 		
-		addSubview(collectionView)
-		collectionView.delegate = self
-		collectionView.dataSource = self
+		addSubview(tabsCollectionView)
+		tabsCollectionView.delegate = self
+		tabsCollectionView.dataSource = self
 		NSLayoutConstraint.activate([
-			collectionView.widthAnchor.constraint(equalTo: widthAnchor),
-			collectionView.heightAnchor.constraint(equalTo: heightAnchor)
+			tabsCollectionView.widthAnchor.constraint(equalTo: widthAnchor),
+			tabsCollectionView.heightAnchor.constraint(equalTo: heightAnchor, constant: -5)
 		])
 		
-		//set selected tab at first run
+		//sets selected tab to be For You
 		let defaultSelected = IndexPath(item: 0, section: 0)
-		collectionView.selectItem(at: defaultSelected, animated: true, scrollPosition: [])
+		tabsCollectionView.selectItem(at: defaultSelected, animated: true, scrollPosition: [])
+		
+		
+		
 	}
+	
+	
+	private let indicatorBar: UIView = {
+		let b = UIView()
+		b.backgroundColor = UIColor(named: "AccentColorBlue")
+		b.layer.cornerRadius = 2.5
+		return b
+	}()
+	
 	
 	override init(frame: CGRect){
 		super.init(frame: frame)
@@ -40,6 +51,27 @@ class HomeBarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate,
 		heightAnchor.constraint(equalToConstant: 50).isActive = true
 		
 		configureCollectionView()
+		addSubview(indicatorBar)
+	}
+	
+	private var indicatorBarAdded = false
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		tabsCollectionView.layoutIfNeeded()
+		
+		if !indicatorBarAdded{
+			guard let firstCell = tabsCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CollectionViewCell else {return}
+
+			let label = firstCell.label.frame
+			
+			print(label.origin.x, frame.maxY, label.width)
+			indicatorBar.frame = CGRect(x: label.origin.x, y: tabsCollectionView.frame.maxY - 2, width: label.width, height: 5)
+			
+			indicatorBarAdded = true
+		}
+			
+			
 	}
 	
 	
@@ -47,17 +79,34 @@ class HomeBarView: UIView, UICollectionViewDataSource, UICollectionViewDelegate,
 		return homeBarTabs.count
 	}
 	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		print(indexPath.item)
+		guard let selectedCell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else {return}
+		let label = selectedCell.label.frame
+		let screenX = selectedCell.convert(label.origin, to: nil).x
+		print(label.origin.x, screenX, indicatorBar.frame.origin.y)
+		let newframe = CGRect(x: screenX, y: indicatorBar.frame.origin.y, width: label.width, height: indicatorBar.frame.height)
+		
+		UIView.animate(withDuration: 0.75, delay: 0) { [weak self] in
+			self?.indicatorBar.frame = newframe
+		}
+		
+	}
+	
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell else {return UICollectionViewCell() }
 		
 		cell.label.text = homeBarTabs[indexPath.row]
+		
+		
+		
 		return cell
 	}
 	
 	// size per cell
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSizeMake(frame.width / 2, frame.height)
+		return CGSizeMake(collectionView.frame.width / 2, collectionView.frame.height)
 	}
 
 	//spacing
@@ -91,27 +140,10 @@ class CollectionViewCell: UICollectionViewCell {
 		return label
 	}()
 	
-	private lazy var indicatorBar: IndicatorLineView = {
-		let line = IndicatorLineView()
-		line.frame = CGRect(x: label.frame.origin.x, y: frame.maxY, width: label.frame.width, height: 5)
-		return line
-	}()
-	
 	
 	override var isSelected: Bool {
 		didSet {
 			label.textColor = isSelected ? .label : .systemGray
-			
-			if isSelected {
-				// Calculate the frame of the indicator line
-				let newframe = CGRect(x: label.frame.origin.x, y: label.frame.origin.y + 2, width: label.frame.width + 3, height: 2)
-				UIView.animate(withDuration: 0.5, delay: 0) { [weak self] in
-					self?.indicatorBar.frame = newframe
-				}
-			}
-			
-
-			
 		}
 	}
 	
@@ -125,7 +157,6 @@ class CollectionViewCell: UICollectionViewCell {
 		super.init(frame: frame)
 		
 		addSubview(label)
-		addSubview(indicatorBar)
 		NSLayoutConstraint.activate([
 			label.centerXAnchor.constraint(equalTo: centerXAnchor),
 			label.centerYAnchor.constraint(equalTo: centerYAnchor),
