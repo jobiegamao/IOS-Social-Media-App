@@ -43,6 +43,7 @@ class ProfileViewController: UIViewController {
 			header.followersCount.text = "\(user.followersCount)"
 			header.followingCount.text = "\(user.followingCount)"
 			header.userbioLabel.text = user.bio
+			header.joineddateLabel.text = "Joined " + (self?.viewModel.getFormattedDate(date: user.createdOn) ?? "today")
 		}
 		.store(in: &subscriptions)
 		

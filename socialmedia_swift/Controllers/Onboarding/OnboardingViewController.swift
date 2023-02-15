@@ -22,17 +22,11 @@ class OnboardingViewController: UIViewController {
 		
 	}()
 	
-	private lazy var signUpBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setTitle("Create Account", for: .normal)
+	private lazy var signUpBtn: CustomOvalButton = {
+		let btn = CustomOvalButton(frame: .zero, primaryAction: nil, title: "Create Account", height: 60)
 		btn.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
-		btn.backgroundColor = UIColor(named: "AccentColorBlue")
-		btn.tintColor = .white
-		btn.layer.cornerRadius = 30
-		
+		btn.isEnabled = true
 		btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
-		
 		return btn
 	}()
 	
@@ -91,7 +85,7 @@ class OnboardingViewController: UIViewController {
 			signUpBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			signUpBtn.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
 			signUpBtn.widthAnchor.constraint(equalTo: welcomeLabel.widthAnchor, constant: -20),
-			signUpBtn.heightAnchor.constraint(equalToConstant: 60),
+			
 			
 			loginView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			loginView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),

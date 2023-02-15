@@ -23,36 +23,19 @@ class LoginViewController: UIViewController {
 		return label
 	}()
 	
-	private let emailTextfield: CustomTextField = {
-		let field = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
-		return field
-	}()
+	private let emailTextfield = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
 	
 	private let passwordTextfield: CustomTextField = {
 		let field = CustomTextField(placeholder: "Password")
 		field.isSecureTextEntry = true
-		
 		return field
 	}()
 	
-	private lazy var loginBtn: UIButton = {
-		let btn = UIButton(type: .system)
-		btn.translatesAutoresizingMaskIntoConstraints = false
-		btn.setTitle("Login", for: .normal)
-		btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-		btn.backgroundColor = UIColor(named: "AccentColorBlue")
-		btn.tintColor = .white
-		btn.layer.cornerRadius = 25
-		
-		btn.isEnabled = false
-		btn.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
-		
+	private lazy var loginBtn: CustomOvalButton = {
+		let btn = CustomOvalButton(frame: .zero, primaryAction: UIAction {[weak self] _ in self?.viewModel.loginUser() }, title: "Login", height: 50)
 		return btn
 	}()
 
-	@objc func didTapLogin(){
-		viewModel.loginUser()
-	}
 	
 	@objc func didTapElsewhere(){
 		view.endEditing(true)
@@ -107,7 +90,6 @@ class LoginViewController: UIViewController {
 			loginBtn.rightAnchor.constraint(equalTo: passwordTextfield.rightAnchor),
 			loginBtn.topAnchor.constraint(equalTo: passwordTextfield.bottomAnchor, constant: 20),
 			loginBtn.widthAnchor.constraint(equalToConstant: 180),
-			loginBtn.heightAnchor.constraint(equalToConstant: 50),
 		])
 	}
     override func viewDidLoad() {

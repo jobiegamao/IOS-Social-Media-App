@@ -23,11 +23,8 @@ class RegisterViewController: UIViewController {
 		return label
 	}()
 	
-	private let emailTextfield: CustomTextField = {
-		let field = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
-		return field
-	}()
-	
+	private let emailTextfield = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
+
 	private let passwordTextfield: CustomTextField = {
 		let field = CustomTextField(placeholder: "Password")
 		field.isSecureTextEntry = true
@@ -35,16 +32,7 @@ class RegisterViewController: UIViewController {
 		return field
 	}()
 	
-	private lazy var signUpBtn: CustomOvalButton = {
-		let btn = CustomOvalButton(title: "Create account")
-		btn.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
-		
-		return btn
-	}()
-	
-	@objc func didTapSignUp(){
-		viewModel.createUser()
-	}
+	private lazy var signUpBtn = CustomOvalButton(frame: .zero, primaryAction: UIAction { [weak self] _ in self?.viewModel.createUser()}, title: "Create account")
 	
 	private func bindViews(){
 		emailTextfield.addTarget(self, action: #selector(didChangeEmailField), for: .editingChanged)

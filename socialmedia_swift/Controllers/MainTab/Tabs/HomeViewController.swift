@@ -15,10 +15,8 @@ class HomeViewController: UIViewController {
 	private var subscriptions: Set<AnyCancellable> = []
 	
 	
-//	private lazy var statusBarView = StatusBarView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height > 800 ? 50 : 25))
-	
 	private lazy var profileButton: UIButton = {
-		let iconSize = 40.0
+		let iconSize = 30.0
 		let button = UIButton(type: .custom)
 		NSLayoutConstraint.activate([
 			button.widthAnchor.constraint(equalToConstant: iconSize),
@@ -32,6 +30,13 @@ class HomeViewController: UIViewController {
 		return button
 	}()
 	
+	@objc func didTapProfile(){
+		print("profile")
+		let vc = ProfileViewController()
+		navigationController?.pushViewController(vc, animated: true)
+		
+	}
+	
 	private let logoImageView: UIImageView = {
 		//add logo in imageview
 		let imageView = UIImageView(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -40,17 +45,7 @@ class HomeViewController: UIViewController {
 		return imageView
 	}()
 	
-	
-//	var isNavbarHidden: Bool = false {
-//		didSet {
-//			UIView.animate(withDuration: 0.3, delay: 1, options: .transitionCurlUp) { [weak self] in
-//				if let state = self?.isNavbarHidden {
-//					self?.statusBarView.layer.opacity = state ? 1 : 0
-//					self?.navigationController?.navigationBar.isHidden = state
-//				}
-//			}
-//		}
-//	}
+
 	private func configureNavbar(){
 		
 		navigationController?.hidesBarsOnSwipe = true
@@ -70,12 +65,7 @@ class HomeViewController: UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.portrait.and.arrow.right"), style: .plain, target: self, action: #selector(didTapLogout))
 	}
 	
-	@objc func didTapProfile(){
-		print("profile")
-		let vc = ProfileViewController()
-		navigationController?.pushViewController(vc, animated: true)
-		
-	}
+
 	
 	@objc func didTapLogout(){
 		try? Auth.auth().signOut()
@@ -134,12 +124,41 @@ class HomeViewController: UIViewController {
 		])
 	}
 	
+	@objc private func didTapPlus(){
+		print("hello")
+		//push vc from bottom
+		let vc = UINavigationController(rootViewController: CreatePostViewController())
+		vc.modalPresentationStyle = .fullScreen
+		present(vc, animated: true)
+	}
+	
+	private lazy var addTweetBtn: CustomOvalButton = {
+		let btn = CustomOvalButton(frame: .zero, primaryAction: nil, title: nil, height: 60)
+		btn.isEnabled = true
+		let plusImage = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+		btn.setImage(plusImage, for: .normal)
+		
+		btn.addTarget(self, action: #selector(didTapPlus), for: .touchUpInside)
+		
+		return btn
+	}()
+	private func configureAddTweetBtn(){
+		view.addSubview(addTweetBtn)
+		NSLayoutConstraint.activate([
+			addTweetBtn.widthAnchor.constraint(equalTo: addTweetBtn.heightAnchor),
+			addTweetBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+			addTweetBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
+		])
+	}
+	
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		view.backgroundColor = .systemBackground
 		configureNavbar()
 		configureHomeBar()
 		configureHomefeedTable()
+		configureAddTweetBtn()
 		
 		bindViews()
 

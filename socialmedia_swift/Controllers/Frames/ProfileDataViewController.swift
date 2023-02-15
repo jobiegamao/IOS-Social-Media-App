@@ -76,8 +76,9 @@ class ProfileDataViewController: UIViewController{
 	}()
 	
 	private lazy var submitBtn: CustomOvalButton = {
-		let btn = CustomOvalButton(title: "Submit & Save")
-		btn.addTarget(self, action: #selector(didTapSubmit), for: .touchUpInside)
+		let btn = CustomOvalButton(frame: .zero, primaryAction: UIAction { [weak self] _ in
+			self?.viewModel.uploadAvatar()
+		}, title: "Submit & Save")
 		return btn
 	}()
 	
@@ -93,10 +94,8 @@ class ProfileDataViewController: UIViewController{
 		viewModel.bio = bioTextview.text
 		viewModel.validateForm()
 	}
-	@objc func didTapSubmit(){
-		viewModel.uploadAvatar()
-	}
 	
+
 	private func bindViews(){
 		displaynameTextfield.addTarget(self, action: #selector(didUpdateDisplayname), for: .editingChanged)
 		usernameTextfield.addTarget(self, action: #selector(didUpdateUsername), for: .editingChanged)
